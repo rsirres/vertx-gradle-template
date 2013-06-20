@@ -136,7 +136,7 @@ test {
   systemProperty 'vertx.mods', "build/mods"
 }
 
-task runModEclipse(dependsOn: copyMod, description: 'Run the module using all the build dependencies (not using installed vertx') << {
+task runModEclipse(dependsOn: copyMod, description: 'Same as task runMod but with pre-defined classpaths for Eclipse') << {
   setSysProps()
   def classpath = [ new URL('file:src/main/resources/'), new URL('file:src/test/resources/'), new URL('file:./bin/')] as URL[]
   def pm = PlatformLocator.factory.createPlatformManager()
