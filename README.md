@@ -10,3 +10,11 @@ messages with `pong!`.
 This template also shows you how to write tests in Java, Groovy, Ruby and Python
 
 See the [build script](build.gradle) for the list of useful tasks
+
+# How to Start
+
+1. Download this Template
+2. Run the command ./gradlew eclipse
+3. Import the created project into Eclipse
+4. Run the command ./gradlew runModEclipse
+5. Have FUN :-D
