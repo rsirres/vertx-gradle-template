@@ -138,9 +138,21 @@ test {
 
 task runModEclipse(dependsOn: copyMod, description: 'Same as task runMod but with pre-defined classpaths for Eclipse') << {
   setSysProps()
-  def classpath = [ new URL('file:src/main/resources/'), new URL('file:src/test/resources/'), new URL('file:./bin/')] as URL[]
+  def classpath = [ new URL('file:src/main/resources/'), new URL('file:src/test/resources/'), new URL('file:./bin/'), new URL('file:build/mods/' + moduleName + '/lib/yoke-1.0.0-beta2.jar')]
+  
+  def basedir = new File('build/mods/' + moduleName + '/lib/')
+
+  // result files of the current run
+  files = basedir.listFiles().grep(~/.*jar$/)
+
+  for (currentFile in files) {
+    classpath.add(new URL('file:'+ currentFile))
+  }
+  
+  classpath = classpath as URL[]
+  
   def pm = PlatformLocator.factory.createPlatformManager()
-  def latch = new CountDownLatch(1)
+  def latch = new CountDownLatch(1) 
   pm.deployModuleFromClasspath(moduleName, null, 1, classpath, new AsyncResultHandler<String>() {
     public void handle(AsyncResult<String> asyncResult) {
       if (asyncResult.succeeded()) {
